@@ -31,23 +31,22 @@ def quote():
         exit(1)
 
     rand_no = random.randint(1, num_of_json)
-    filename = os.path.join(data_dir, str(rand_no).zfill(3) + '.json')
+    filename = os.path.join(data_dir, f'{str(rand_no).zfill(3)}.json')
     with open(filename) as json_data:
         try:
             quotes = json.load(json_data)
         except ValueError:
             print ("---------------Debug info begins:--------------")
             print("Oops, we met a ValueError.")
-            print("Please check this file "+filename)
+            print(f"Please check this file {filename}")
             print("1. A Possible reason is that there is a redundant comma behind last group of author/quote in this json file.")
             print("   If so, delete that redundant comma, then it will run smoothly.")
             print("2. Another possible reason is that there is hard line-break or tab in that file.")
             print("   However JSON don't support that. Please use '\\n' or '\\t'.")
             print("For later actions, I help you wrote this filename to JSON_ERROR_LIST.txt.")
             print("I suggest you to test those json file in this website: jsonlint.com")
-            f_tmp = open('JSON_ERROR_LIST.txt', "a")
-            f_tmp.write(filename+"\n")
-            f_tmp.close()
+            with open('JSON_ERROR_LIST.txt', "a") as f_tmp:
+                f_tmp.write(filename+"\n")
             print ("---------------Debug info ends:--------------")
             return
 
@@ -57,7 +56,7 @@ def quote():
             author = quotes["data"][ran_no]["author"]
             if os.name == "nt" or args.nocolor:
                 quote = "\"" + quote + "\""
-                author = "--" + author
+                author = f"--{author}"
                 white_code = ""
             else:
                 quote = "\033[1;36m" + "\"" + quote + "\"" + "\033[1;m"
@@ -80,7 +79,7 @@ def quote():
             print("Let's check the output:")
             f_tmp = open(filename)
             quotes = json.load(f_tmp)
-            print(str(quotes["data"][ran_no]))
+            print(quotes["data"][ran_no])
             print("Hopfully this problem has been solved.")
 
 
