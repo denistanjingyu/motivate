@@ -15,7 +15,7 @@ for f in all_json:
 uniq_authors = {quote['author'] for quote in quotes}
 uniq_quotes = {quote['quote'] for quote in quotes}
 
-print('Unique quotes: {}, authors: {}'.format(len(uniq_quotes), len(uniq_authors)))
+print(f'Unique quotes: {len(uniq_quotes)}, authors: {len(uniq_authors)}')
 
 seen = set()
 dupes = sorted([x for x in quotes if x['quote'] in seen or seen.add(x['quote'])], key=lambda x: x['quote'])

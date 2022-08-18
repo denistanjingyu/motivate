@@ -25,7 +25,7 @@ def unique_quotes(quote_list):
     return {quote['quote'] for quote in quote_list}
     
 def print_uniques(authors, quotes):
-    print('Unique quotes: {}, authors: {}'.format(len(quotes), len(authors)))
+    print(f'Unique quotes: {len(quotes)}, authors: {len(authors)}')
    
 def find_duplicates(all_quotes):
     seen = set()
@@ -38,7 +38,14 @@ def find_duplicates(all_quotes):
 # take these tuples, re-recreate a dictionary
 # then build the top level "data": [{'quote': 'author'},....] dictionary
 def get_unique_pairs(all_quotes):
-    return {"data":[dict(tuple) for tuple in set([tuple(dict_items.items()) for dict_items in all_quotes])]}
+    return {
+        "data": [
+            dict(tuple)
+            for tuple in {
+                tuple(dict_items.items()) for dict_items in all_quotes
+            }
+        ]
+    }
  
     
 def output_json(processed_quotes):
